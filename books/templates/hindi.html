@@ -1,0 +1,249 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hindi Books | Magical World</title>
+
+  <!-- Bootstrap + Fonts + p5.js -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+      overflow-x: hidden;
+      height: 100%;
+      color: #fff;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: -1;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3.5rem;
+      text-align: center;
+      color: #ffffff;
+      text-shadow: 0 0 25px #ff91ff, 0 0 35px #b5f4ff;
+      margin-bottom: 60px;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 15px #ffb6ff; }
+      to { text-shadow: 0 0 35px #ffb6ff, 0 0 60px #afffff; }
+    }
+
+    .card {
+      border: none;
+      border-radius: 16px;
+      background: #ffffff; /* White card */
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.95);
+    }
+
+    .card-img-top {
+      height: 140px;
+      object-fit: contain;
+      padding: 10px;
+      transform: scale(0.95);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover .card-img-top {
+      transform: scale(1.0);
+    }
+
+    .card-body {
+      padding: 0.75rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+      color: #333;
+      font-weight: 700;
+    }
+
+    .card-text, .stock-info, .rating {
+      font-size: 0.8rem;
+      color: #444;
+    }
+
+    .btn-view, .btn-cart {
+      border: none;
+      padding: 6px 16px;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 0.85rem;
+      transition: 0.3s ease;
+    }
+
+    .btn-view {
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      color: white;
+    }
+
+    .btn-view:hover {
+      background: linear-gradient(to right, #ff6a88, #ff99ac);
+    }
+
+    .btn-cart {
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      color: white;
+      margin-left: 10px;
+    }
+
+    .btn-cart:hover {
+      background: linear-gradient(to right, #a18cd1, #fbc2eb);
+    }
+
+    .rating {
+      color: gold;
+    }
+
+    .stock-info {
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container py-4 text-center">
+    <h1>📚 Hindi Magical Storybooks 📚</h1>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
+
+      {% for book in books %}
+      <div class="col">
+        <div class="card h-100">
+          <img src="{{ book.cover_image }}" class="card-img-top" alt="{{ book.title }}">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ book.title }}</h5>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            <p><strong>Price:</strong> ₹{{ book.price }}</p>
+            <div class="rating">
+  <span style="color: black;">{{ book.rating }}</span>
+  {% with full_stars=book.rating|floatformat:"0" %}
+    {% for i in "12345" %}
+      {% if forloop.counter <= full_stars|add:"0" %}
+        <span style="color: gold;">&#9733;</span> {# Filled Star: ⭐ #}
+      {% else %}
+        <span style="color: gray;">&#9734;</span> {# Empty Star: ☆ #}
+      {% endif %}
+    {% endfor %}
+  {% endwith %}
+</div>
+
+
+
+            <div class="stock-info">Only {{ book.stock_count }} left in stock</div>
+            <div class="mt-2">
+              <a href="{% url 'hindi_book_detail' book.id %}" class="btn btn-view">📖 View Book</a>
+
+        
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center">No Hindi books found.</p>
+      {% endfor %}
+
+    </div>
+  </div>
+
+  <!-- Galaxy Background Script -->
+  <script>
+    let stars = [];
+    let meteors = [];
+
+    function setup() {
+      createCanvas(window.innerWidth, window.innerHeight);
+      for (let i = 0; i < 250; i++) {
+        stars.push({
+          x: random(width),
+          y: random(height),
+          size: random(1, 2.5),
+          brightness: random(150, 255),
+          twinkleSpeed: random(0.01, 0.05),
+          speedX: random(-0.1, 0.1),
+          speedY: random(-0.1, 0.1)
+        });
+      }
+    }
+
+    function draw() {
+      background(0, 30);
+      noStroke();
+      for (let star of stars) {
+        star.brightness += sin(frameCount * star.twinkleSpeed) * 2;
+        fill(255, 255, 255, star.brightness);
+        ellipse(star.x, star.y, star.size);
+        star.x += star.speedX;
+        star.y += star.speedY;
+        if (star.x < 0) star.x += width;
+        if (star.x > width) star.x -= width;
+        if (star.y < 0) star.y += height;
+        if (star.y > height) star.y -= height;
+      }
+
+      if (random() < 1 / 90) {
+        meteors.push({
+          x: random(-100, -50),
+          y: random(height / 4),
+          len: random(50, 120),
+          speed: random(8, 14),
+          angle: radians(35),
+          trail: []
+        });
+      }
+
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        let m = meteors[i];
+        let dx = cos(m.angle) * m.speed;
+        let dy = sin(m.angle) * m.speed;
+        m.trail.push({ x: m.x, y: m.y, alpha: 255 });
+        m.x += dx;
+        m.y += dy;
+
+        for (let j = m.trail.length - 1; j >= 0; j--) {
+          let t = m.trail[j];
+          fill(255, 255, 255, t.alpha);
+          stroke(180, 220, 255, t.alpha);
+          strokeWeight(2);
+          ellipse(t.x, t.y, 2);
+          t.alpha -= 10;
+          if (t.alpha <= 0) m.trail.splice(j, 1);
+        }
+
+        drawingContext.shadowBlur = 30;
+        drawingContext.shadowColor = 'white';
+        strokeWeight(4);
+        stroke(255, 255, 255, 240);
+        line(m.x, m.y, m.x - dx * 2, m.y - dy * 2);
+        drawingContext.shadowBlur = 0;
+
+        if (m.x > width || m.y > height) meteors.splice(i, 1);
+      }
+    }
+
+    function windowResized() {
+      resizeCanvas(window.innerWidth, window.innerHeight);
+    }
+  </script>
+
+</body>
+</html>

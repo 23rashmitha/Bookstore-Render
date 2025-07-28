@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ book.title }} | Magical World</title>
+
+  <!-- Bootstrap + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      font-family: 'Nunito', sans-serif;
+      background: radial-gradient(circle at top, #ffdde1, #ee9ca7);
+      animation: bgPulse 15s ease-in-out infinite;
+      overflow-x: hidden;
+      color: #333;
+      position: relative;
+    }
+
+    @keyframes bgPulse {
+      0%, 100% {
+        background-position: 0% 50%;
+        background-size: 200% 200%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: sparkleMove 8s linear infinite;
+    }
+
+    @keyframes sparkleMove {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-800px) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+      text-align: center;
+      color: #d63384;
+      text-shadow: 0 0 10px #ffd6f9, 0 0 20px #ffc0cb;
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      padding: 30px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 20px 50px rgba(255, 105, 180, 0.3);
+      animation: float 4s ease-in-out infinite;
+      backdrop-filter: blur(8px);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .img-fluid {
+      max-height: 300px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .info {
+      background: #fff0f5;
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .rating span {
+      font-size: 1.5rem;
+    }
+
+    .btn-cart {
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      animation: pulse 2s infinite;
+      box-shadow: 0 12px 25px rgba(255, 105, 180, 0.4);
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-cart:hover {
+      transform: scale(1.1);
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      color: #333;
+      box-shadow: 0 15px 35px rgba(255, 182, 193, 0.6);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Floating Sparkles -->
+  <script>
+    for (let i = 0; i < 50; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = `${Math.random() * 100}vw`;
+      sparkle.style.top = `${Math.random() * 100 + 100}px`;
+      sparkle.style.animationDelay = `${Math.random() * 10}s`;
+      document.body.appendChild(sparkle);
+    }
+  </script>
+
+  <!-- Book content -->
+  <div class="container">
+    <h1>{{ book.title }}</h1>
+    <div class="card">
+      <div class="row g-4 align-items-center">
+        <div class="col-md-5 text-center">
+          <img src="{{ book.cover_image }}" alt="{{ book.title }}" class="img-fluid">
+        </div>
+        <div class="col-md-7">
+          <div class="info"><strong>Author:</strong> {{ book.author }}</div>
+          <div class="info"><strong>Price:</strong> ₹{{ book.price }}</div>
+          <div class="info"><strong>Stock:</strong> {{ book.stock_count }} available</div>
+          <div class="info"><strong>Description:</strong><br>{{ book.description }}</div>
+          <div class="info rating">
+            <strong>Rating:</strong>
+            <span>{{ book.rating }}</span>
+            {% with full_stars=book.rating|floatformat:"0" %}
+              {% for i in "12345" %}
+                {% if forloop.counter <= full_stars|add:"0" %}
+                  <span style="color: gold;">&#9733;</span>
+                {% else %}
+                  <span style="color: lightgray;">&#9734;</span>
+                {% endif %}
+              {% endfor %}
+            {% endwith %}
+          </div>
+          <button class="btn-cart">🎉 Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti + Magic Sound on Click -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    const btn = document.querySelector('.btn-cart');
+
+    btn.addEventListener('click', () => {
+      // Magical confetti burst from left-bottom
+      confetti({
+        particleCount: 120,
+        spread: 70,
+        origin: { x: 0.2, y: 0.9 },
+        angle: 45,
+        colors: ['#f87171', '#facc15', '#4ade80', '#60a5fa', '#c084fc', '#fb7185'],
+        scalar: 1.3,
+        ticks: 100
+      });
+
+      // Magical confetti burst from right-bottom
+      confetti({
+        particleCount: 120,
+        spread: 70,
+        origin: { x: 0.8, y: 0.9 },
+        angle: 135,
+        colors: ['#ff99c8', '#fcf6bd', '#d0f4de', '#a9def9', '#e4c1f9'],
+        scalar: 1.3,
+        ticks: 100
+      });
+
+      // Play magical chime
+      const audio = new Audio('https://cdn.pixabay.com/download/audio/2022/03/02/audio_470db401f3.mp3?filename=magical-transition-105275.mp3');
+      audio.volume = 0.5;
+      audio.play();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Virtual environment
+myvenv/
+venv/
+env/
+
+# SQLite database
+db.sqlite3
+
+# Static files (will be collected again on Render)
+staticfiles/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# IDE/editor files
+.vscode/

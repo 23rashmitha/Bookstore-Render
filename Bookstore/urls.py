@@ -15,11 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 # Bookstore/urls.py
-
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('book/', include("books.urls")),  # All your app URLs will be under /book/
+    
+    # Allow access via /book/...
+    path('book/', include("books.urls")),
+
+    # Optional: Allow direct access via /, /login/, /telugu/, etc.
+    path('', include("books.urls")),
 ]

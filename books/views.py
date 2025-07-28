@@ -8,22 +8,21 @@ from .models import TeluguBook, HindiBook, EnglishBook, FrenchBook, KannadaBook
 def Home(request):
     return render(request, "index.html")
 
-# ----------------- LOGIN -----------------
 
+# ----------------- LOGIN -----------------
 def Login(request):
     if request.method == 'POST':
         un = request.POST.get('Username')
         pw = request.POST.get('password')
 
-        # Check if user exists and password matches
         user = authenticate(username=un, password=pw)
         if user is not None:
-            auth_login(request, user)  # Log the user in
+            auth_login(request, user)
             messages.success(request, "Login successful! Welcome 😊")
-            return redirect('home')  # Redirect to home page
+            return redirect('home')
         else:
             messages.error(request, "Invalid username or password")
-            return redirect('login')  # Back to login if failed
+            return redirect('login')
 
     return render(request, "login.html")
 
@@ -56,12 +55,14 @@ def Register(request):
 
     return render(request, "register.html")
 
+
 # ----------------- PAGES -----------------
 def List(request):
     return render(request, "list.html")
 
 def Stories(request):
     return render(request, "stories.html")
+
 
 # ----------------- TELUGU -----------------
 def Telugu(request):
@@ -72,6 +73,7 @@ def telugu_book_detail(request, book_id):
     book = get_object_or_404(TeluguBook, id=book_id)
     return render(request, 'view_book.html', {'book': book})
 
+
 # ----------------- HINDI -----------------
 def Hindi(request):
     books = HindiBook.objects.all()
@@ -80,6 +82,7 @@ def Hindi(request):
 def hindi_book_detail(request, book_id):
     book = get_object_or_404(HindiBook, id=book_id)
     return render(request, 'view_book.html', {'book': book})
+
 
 # ----------------- ENGLISH -----------------
 def English(request):
@@ -90,6 +93,7 @@ def english_book_detail(request, book_id):
     book = get_object_or_404(EnglishBook, id=book_id)
     return render(request, 'view_book.html', {'book': book})
 
+
 # ----------------- FRENCH -----------------
 def French(request):
     books = FrenchBook.objects.all()
@@ -98,6 +102,7 @@ def French(request):
 def french_book_detail(request, book_id):
     book = get_object_or_404(FrenchBook, id=book_id)
     return render(request, 'view_book.html', {'book': book})
+
 
 # ----------------- KANNADA -----------------
 def Kannada(request):

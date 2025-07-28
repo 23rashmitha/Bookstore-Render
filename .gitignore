@@ -4,7 +4,7 @@ venv/
 env/
 
 # SQLite database
-db.sqlite3
+#db.sqlite3
 
 # Static files (will be collected again on Render)
 staticfiles/

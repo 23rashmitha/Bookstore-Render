@@ -10,7 +10,7 @@ class TeluguBook(models.Model):
     stock_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.titlecc
+        return self.title
 
 class HindiBook(models.Model):
     title = models.CharField(max_length=200)

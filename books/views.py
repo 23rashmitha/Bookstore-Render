@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import TeluguBook, HindiBook, EnglishBook, FrenchBook, KannadaBook
+from .models import TeluguBook, HindiBook, EnglishBook, FrenchBook, KannadaBook,MechanicalBook, CivilBook, CseBook, EceBook, EeeBook, ChemicalBook
 
 # ----------------- HOME -----------------
 def Home(request):
@@ -114,4 +114,56 @@ def Kannada(request):
 
 def kannada_book_detail(request, book_id):
     book = get_object_or_404(KannadaBook, id=book_id)
+    return render(request, 'view_book.html', {'book': book})
+
+def Mechanical(request):
+    books = MechanicalBook.objects.all()
+    return render(request, 'mechanical.html', {'books': books})
+
+def mechanical_book_detail(request, book_id):
+    book = get_object_or_404(MechanicalBook, id=book_id)
+    return render(request, 'view_book.html', {'book': book})
+
+def Civil(request):
+    books = CivilBook.objects.all()
+    return render(request, 'civil.html', {'books': books})
+
+def civil_book_detail(request, book_id):
+    book = get_object_or_404(CivilBook, id=book_id)
+    return render(request, 'view_book.html', {'book': book})
+
+
+def Cse(request):
+    books = CseBook.objects.all()
+    return render(request, 'cse.html', {'books': books})
+
+def cse_book_detail(request, book_id):
+    book = get_object_or_404(CseBook, id=book_id)
+    return render(request, 'view_book.html', {'book': book})
+
+
+def Ece(request):
+    books = EceBook.objects.all()
+    return render(request, 'ece.html', {'books': books})
+
+def ece_book_detail(request, book_id):
+    book = get_object_or_404(EceBook, id=book_id)
+    return render(request, 'view_book.html', {'book': book})
+
+
+def Eee(request):
+    books = EeeBook.objects.all()
+    return render(request, 'eee.html', {'books': books})
+
+def eee_book_detail(request, book_id):
+    book = get_object_or_404(EeeBook, id=book_id)
+    return render(request, 'view_book.html', {'book': book})
+
+
+def Chemical(request):
+    books = ChemicalBook.objects.all()
+    return render(request, 'chemical.html', {'books': books})
+
+def chemical_book_detail(request, book_id):
+    book = get_object_or_404(ChemicalBook, id=book_id)
     return render(request, 'view_book.html', {'book': book})

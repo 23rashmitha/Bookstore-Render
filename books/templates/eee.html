@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Telugu Books | Magical World</title>
+  <title>EEE Books | Magical World</title>
 
   <!-- Bootstrap + Fonts + p5.js -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -45,7 +45,7 @@
     .card {
       border: none;
       border-radius: 16px;
-      background: #ffffff; /* White card */
+      background: #ffffff;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
@@ -83,32 +83,19 @@
       color: #444;
     }
 
-    .btn-view, .btn-cart {
+    .btn-view {
       border: none;
       padding: 6px 16px;
       border-radius: 25px;
       font-weight: bold;
       font-size: 0.85rem;
-      transition: 0.3s ease;
-    }
-
-    .btn-view {
       background: linear-gradient(to right, #ff9a9e, #fad0c4);
       color: white;
+      transition: 0.3s ease;
     }
 
     .btn-view:hover {
       background: linear-gradient(to right, #ff6a88, #ff99ac);
-    }
-
-    .btn-cart {
-      background: linear-gradient(to right, #74ebd5, #acb6e5);
-      color: white;
-      margin-left: 10px;
-    }
-
-    .btn-cart:hover {
-      background: linear-gradient(to right, #a18cd1, #fbc2eb);
     }
 
     .rating {
@@ -123,7 +110,7 @@
 <body>
 
   <div class="container py-4 text-center">
-    <h1>📚 Telugu Magical Storybooks 📚</h1>
+    <h1>⚡ EEE Magical Books ⚡</h1>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
 
       {% for book in books %}
@@ -135,52 +122,43 @@
             <p><strong>Author:</strong> {{ book.author }}</p>
             <p><strong>Price:</strong> ₹{{ book.price }}</p>
             <div class="rating">
-  <span style="color: black;">{{ book.rating }}</span>
-  {% with full_stars=book.rating|floatformat:"0" %}
-    {% for i in "12345" %}
-      {% if forloop.counter <= full_stars|add:"0" %}
-        <span style="color: gold;">&#9733;</span> {# Filled Star: ⭐ #}
-      {% else %}
-        <span style="color: gray;">&#9734;</span> {# Empty Star: ☆ #}
-      {% endif %}
-    {% endfor %}
-  {% endwith %}
-</div>
-
-
+              <span style="color: black;">{{ book.rating }}</span>
+              {% with full_stars=book.rating|floatformat:"0" %}
+              {% for i in "12345" %}
+                {% if forloop.counter <= full_stars|add:"0" %}
+                  <span style="color: gold;">&#9733;</span>
+                {% else %}
+                  <span style="color: gray;">&#9734;</span>
+                {% endif %}
+              {% endfor %}
+              {% endwith %}
+            </div>
 
             <div class="stock-info">Only {{ book.stock_count }} left in stock</div>
             <div class="mt-2">
-              <a href="{% url 'telugu_book_detail' book.id %}" class="btn btn-view">📖 View Book</a>
-
-        
-            </div>c
+              <a href="{% url 'eee_book_detail' book.id %}" class="btn btn-view">📖 View Book</a>
+            </div>
           </div>
         </div>
       </div>
       {% empty %}
-      <p class="text-center">No Telugu books found.</p>
+      <p class="text-center">No EEE books found.</p>
       {% endfor %}
 
     </div>
   </div>
 
-  <!-- Galaxy Background Script -->
   <script>
-    let stars = [];
-    let meteors = [];
+    let stars = [], meteors = [];
 
     function setup() {
       createCanvas(window.innerWidth, window.innerHeight);
       for (let i = 0; i < 250; i++) {
         stars.push({
-          x: random(width),
-          y: random(height),
-          size: random(1, 2.5),
-          brightness: random(150, 255),
+          x: random(width), y: random(height),
+          size: random(1, 2.5), brightness: random(150, 255),
           twinkleSpeed: random(0.01, 0.05),
-          speedX: random(-0.1, 0.1),
-          speedY: random(-0.1, 0.1)
+          speedX: random(-0.1, 0.1), speedY: random(-0.1, 0.1)
         });
       }
     }
@@ -216,8 +194,7 @@
         let dx = cos(m.angle) * m.speed;
         let dy = sin(m.angle) * m.speed;
         m.trail.push({ x: m.x, y: m.y, alpha: 255 });
-        m.x += dx;
-        m.y += dy;
+        m.x += dx; m.y += dy;
 
         for (let j = m.trail.length - 1; j >= 0; j--) {
           let t = m.trail[j];

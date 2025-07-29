@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IIT/JEE | Magical World</title>
+
+  <!-- Bootstrap + Google Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+      font-family: 'Nunito', sans-serif;
+      animation: fadeIn 2s ease-in;
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    h1 {
+      font-family: 'Sacramento', cursive;
+      font-size: 4rem;
+      text-align: center;
+      color: #fff;
+      margin: 40px 0;
+      text-shadow: 0 0 10px #ff6bcb, 0 0 20px #ffc3a0;
+      animation: floatText 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatText {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+
+    .card {
+      border: none;
+      border-radius: 25px;
+      overflow: hidden;
+      background: linear-gradient(to bottom right, #fbc2eb, #a6c1ee);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      transition: all 0.4s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-body {
+      padding: 30px;
+      text-align: center;
+    }
+
+    .card-title {
+      font-size: 1.8rem;
+      color: #4a148c;
+      font-weight: 700;
+      text-shadow: 0 0 6px #e1bee7;
+    }
+
+    .btn-view {
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      color: #fff;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 182, 193, 0.6);
+    }
+
+    .btn-view:hover {
+      background: linear-gradient(to right, #ff6a88, #ff99ac);
+      transform: scale(1.05);
+    }
+
+    .container {
+      padding-bottom: 50px;
+    }
+
+    .fairy-dust {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: url('https://i.ibb.co/7G2w1w7/fairy-dust.gif') repeat;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    .row {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="fairy-dust"></div>
+
+  <div class="container">
+    <h1>✨ Explore the Magical World of IIT/JEE ✨</h1>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">📘 JEE Chemistry</h5>
+            <a href="{% url 'jee_chemistry' %}" class="btn btn-view mt-3">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">⚛️ JEE Physics</h5>
+            <a href="{% url 'jee_physics' %}" class="btn btn-view mt-3">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">📐 JEE Math</h5>
+            <a href="{% url 'jee_math' %}" class="btn btn-view mt-3">View Details</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">🧠 JEE Mock Tests</h5>
+            <a href="{% url 'jee_mock' %}" class="btn btn-view mt-3">Start Practice</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

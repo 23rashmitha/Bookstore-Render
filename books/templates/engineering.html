@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,7 +110,7 @@
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">⚙️ Mechanical Engineering</h5>
-            <a href="/branch/mechanical/" class="btn btn-view mt-3">View Details</a>
+            <a href="{% url 'mechanical' %}" class="btn btn-view mt-3">View Details</a>
           </div>
         </div>
       </div>
@@ -118,7 +119,7 @@
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">⚡ Electrical Engineering</h5>
-            <a href="/branch/electrical/" class="btn btn-view mt-3">View Details</a>
+            <a href="{% url 'eee' %}" class="btn btn-view mt-3">View Details</a>
           </div>
         </div>
       </div>
@@ -127,7 +128,7 @@
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">💻 Computer Science</h5>
-            <a href="/branch/cse/" class="btn btn-view mt-3">View Details</a>
+            <a href="{% url 'cse' %}" class="btn btn-view mt-3">View Details</a>
           </div>
         </div>
       </div>
@@ -136,7 +137,7 @@
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">📡 Electronics & Comm.</h5>
-            <a href="/branch/ece/" class="btn btn-view mt-3">View Details</a>
+            <a href="{% url 'ece' %}" class="btn btn-view mt-3">View Details</a>
           </div>
         </div>
       </div>
@@ -145,7 +146,7 @@
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">🏗️ Civil Engineering</h5>
-            <a href="/branch/civil/" class="btn btn-view mt-3">View Details</a>
+            <a href="{% url 'civil' %}" class="btn btn-view mt-3">View Details</a>
           </div>
         </div>
       </div>
@@ -154,7 +155,7 @@
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title">🧪 Chemical Engineering</h5>
-            <a href="/branch/chemical/" class="btn btn-view mt-3">View Details</a>
+            <a href="{% url 'chemical' %}" class="btn btn-view mt-3">View Details</a>
           </div>
         </div>
       </div>

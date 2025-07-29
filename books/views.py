@@ -64,6 +64,9 @@ def Stories(request):
     return render(request, "stories.html")
 
 
+def engineering(request):
+    return render(request, 'engineering.html')
+
 # ----------------- TELUGU -----------------
 def Telugu(request):
     books = TeluguBook.objects.all()

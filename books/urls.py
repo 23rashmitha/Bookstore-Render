@@ -8,6 +8,8 @@ urlpatterns = [
     path('register/', views.Register, name='register'),
     path('list/', views.List, name='list'),
     path('stories/', views.Stories, name='stories'),
+    
+path('engineering/', views.engineering, name='engineering'),
 
     path('telugu/', views.Telugu, name='telugu'),
     path('telugu/book/<int:book_id>/', views.telugu_book_detail, name='telugu_book_detail'),
